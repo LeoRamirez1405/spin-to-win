@@ -142,7 +142,7 @@ function App() {
               <option value="pregunta">Pregunta</option>
             </select>
             <input value={customTexto} onChange={(e) => setCustomTexto(e.target.value)} placeholder="Texto del reto/pregunta" style={{ flex: 1 }} />
-            <button onClick={agregarItem}>Agregar</button>
+            <button onClick={agregarItem}>Agregar pregunta</button>
           </div>
           {customItems.length > 0 && (
             <div className="custom-list">
@@ -155,15 +155,16 @@ function App() {
             </div>
           )}
         </div>
-        <div style={{ display: 'flex', gap: 12, justifyContent: 'center', alignItems: 'center', marginBottom: 16 }}>
+        <div className="player-input-row" style={{ display: 'flex', gap: 12, justifyContent: 'center', alignItems: 'center', marginBottom: 16 }}>
           <input
+            className="nombre-input"
             value={nombre}
             onChange={(e) => setNombre(e.target.value)}
             placeholder="Nombre del jugador"
             style={{ flex: 1, minWidth: 0 }}
           />
           <button className="agregar-jugador-btn" onClick={agregarNombre}>
-            Agregar
+            Agregar jugador
           </button>
         </div>
         <button onClick={iniciarJuego} disabled={nombres.length < 2} style={{ marginTop: 8 }}>
