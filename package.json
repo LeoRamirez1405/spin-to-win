@@ -6,7 +6,9 @@
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview",
-    "test": "jest"
+    "test": "jest",
+    "create:repo": "sh ./scripts/create_github_repo.sh",
+    "create:repo:ps": "pwsh ./scripts/create_github_repo.ps1"
   },
   "dependencies": {
     "@vitejs/plugin-react": "^5.1.2",
