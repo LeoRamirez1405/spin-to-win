@@ -1,0 +1,12 @@
+.you-died-overlay {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(10,10,10,0.7);
+  color: #fff;
+  z-index: 9999;
+}
+.you-died-text { font-size: 48px; font-weight: 800; }
+.you-died-sub { font-size: 18px; margin-top: 12px }

@@ -1,0 +1,248 @@
+/* Paleta general: azul, violeta, rojo */
+
+:root {
+  --azul: #3a8dde;
+  --violeta: #7b2ff2;
+  --rojo: #ff416c;
+  --azul-violeta: linear-gradient(90deg, #3a8dde 0%, #7b2ff2 100%);
+  --violeta-rojo: linear-gradient(90deg, #7b2ff2 0%, #ff416c 100%);
+  --azul-rojo: linear-gradient(90deg, #3a8dde 0%, #ff416c 100%);
+  --fondo: linear-gradient(135deg, #3a8dde 0%, #7b2ff2 60%, #ff416c 100%);
+}
+
+body {
+  min-height: 100vh;
+  background: var(--fondo);
+  margin: 0;
+  font-family: 'Segoe UI', 'Roboto', Arial, sans-serif;
+  color: #fff;
+}
+
+.container {
+  background: rgba(30, 30, 60, 0.32);
+  border-radius: 24px;
+  box-shadow: 0 8px 32px rgba(58,141,222,0.12);
+  padding: 32px 24px 24px 24px;
+  margin: 40px auto 0 auto;
+  max-width: 480px;
+  width: 95%;
+}
+
+h1 {
+  font-size: 2.6em;
+  font-weight: bold;
+  background: var(--azul-rojo);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  text-fill-color: transparent;
+  text-align: center;
+  margin-bottom: 0.2em;
+  text-shadow: 0 2px 16px #7b2ff2cc;
+}
+h2 {
+  font-size: 1.5em;
+  font-weight: 600;
+  background: var(--violeta-rojo);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  text-fill-color: transparent;
+  margin-top: 0.5em;
+  margin-bottom: 0.5em;
+  text-align: center;
+  text-shadow: 0 2px 8px #3a8dde99;
+}
+h3 {
+  font-size: 1.2em;
+  font-weight: 600;
+  color: #fff;
+  background: var(--azul-violeta);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  text-fill-color: transparent;
+  margin-bottom: 0.3em;
+  text-shadow: 0 2px 8px #ff416c99;
+}
+/* Textos secundarios en azul oscuro para contraste */
+p, li {
+  color: #1a2340;
+  text-shadow: 0 1px 6px #fff8;
+  font-size: 1.08em;
+}
+
+input, .jugador, .jugador.actual, .jugador-input {
+  color: #1a2340 !important;
+  background: #fff !important;
+  border: 1px solid #7b2ff2;
+  box-shadow: 0 1px 6px #3a8dde22;
+}
+
+.vidas {
+  color: #ff416c !important;
+}
+
+.reto-pregunta h3, .reto-pregunta p {
+  color: #1a2340 !important;
+  text-shadow: none !important;
+}
+
+/* Botón agregar jugador */
+.agregar-jugador-btn {
+  background: var(--azul-violeta);
+  color: #fff;
+  border: none;
+  border-radius: 16px;
+  padding: 10px 22px;
+  font-size: 1em;
+  font-weight: bold;
+  cursor: pointer;
+  margin-left: 8px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  transition: background 0.2s;
+}
+.agregar-jugador-btn:hover {
+  background: var(--violeta-rojo);
+}
+
+button, .girar-ruleta-btn, .cumplido, .no-cumplido {
+  background: var(--azul-rojo);
+  color: #fff;
+  border: none;
+  border-radius: 24px;
+  padding: 14px 28px;
+  font-size: 1.1em;
+  font-weight: bold;
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  transition: background 0.2s;
+  margin: 6px 0;
+}
+button:hover, .girar-ruleta-btn:hover:not(:disabled), .cumplido:hover, .no-cumplido:hover {
+  background: var(--violeta-rojo);
+}
+
+.jugador {
+  background: rgba(58, 141, 222, 0.18);
+  border-radius: 12px;
+  padding: 8px 18px;
+  margin: 0 8px 8px 0;
+  color: #fff;
+  font-weight: 500;
+}
+.jugador.actual {
+  background: rgba(123, 47, 242, 0.32);
+  border: 2px solid #ff416c;
+}
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@700&display=swap');
+
+body {
+  font-family: 'Montserrat', sans-serif;
+  background: linear-gradient(135deg, #f9d423 0%, #ff4e50 100%);
+  min-height: 100vh;
+  margin: 0;
+}
+
+.container {
+  max-width: 500px;
+  margin: 40px auto;
+  background: #fff8e1;
+  border-radius: 16px;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.12);
+  padding: 32px 24px;
+  text-align: center;
+}
+
+h1 {
+  color: #ff4e50;
+  margin-bottom: 8px;
+}
+
+h2 {
+  color: #f9d423;
+  margin-top: 0;
+}
+
+.jugadores {
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.jugador {
+  background: #ffe082;
+  border-radius: 8px;
+  padding: 8px 16px;
+  font-weight: bold;
+  color: #ff4e50;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+}
+
+.jugador.actual {
+  background: #f9d423;
+  color: #fff;
+}
+
+.vidas {
+  margin-left: 8px;
+  color: #ff4e50;
+}
+
+.girar {
+  background: linear-gradient(90deg, #f9d423 0%, #ff4e50 100%);
+  color: #fff;
+  border: none;
+  border-radius: 24px;
+  padding: 16px 32px;
+  font-size: 1.2em;
+  font-weight: bold;
+  cursor: pointer;
+  margin-bottom: 16px;
+  transition: background 0.2s;
+}
+.girar:hover {
+  background: linear-gradient(90deg, #ff4e50 0%, #f9d423 100%);
+}
+
+.reto-pregunta {
+  background: #fffde7;
+  border-radius: 12px;
+  padding: 24px 16px;
+  margin: 16px 0;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+}
+
+.custom-items-section h3 { margin: 8px 0 6px 0; color: #ff4e50 }
+.custom-items-section select, .custom-items-section input { padding: 8px; border-radius: 8px; border: 1px solid #ffe082 }
+.custom-items-section button { padding: 8px 12px; border-radius: 8px }
+
+
+.cumplido, .no-cumplido {
+  border: none;
+  border-radius: 20px;
+  padding: 12px 24px;
+  font-size: 1em;
+  margin: 8px;
+  font-weight: bold;
+  cursor: pointer;
+}
+.cumplido {
+  background: #43e97b;
+  color: #fff;
+}
+.no-cumplido {
+  background: #ff4e50;
+  color: #fff;
+}
+input {
+  border-radius: 8px;
+  border: 1px solid #ffe082;
+  padding: 8px 12px;
+  margin: 8px 0;
+  font-size: 1em;
+}
+button {
+  outline: none;
+}
