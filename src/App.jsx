@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from "react";
 import './YouDied.css';
 import "./App.css";
 import TypingReveal from "./TypingReveal";
+import { subscribeToGame, updateGameRemote, initFirebase } from './firebase';
 // Import local JSON data
 import retosJson from './data/retos.json';
 import preguntasJson from './data/preguntas.json';
@@ -36,10 +37,30 @@ function App() {
   const [currentTexto, setCurrentTexto] = useState('');
   const revealActiveRef = useRef(false);
 
+  useEffect(() => {
+    // initialize firebase if user filled config in src/firebase.js
+    try { initFirebase(); } catch (e) { /* ignore if not configured */ }
+    const unsub = subscribeToGame((data) => {
+      if (!data) return;
+      if (data.nombres) setNombres(data.nombres);
+      if (data.jugadores) setJugadores(data.jugadores);
+      if (data.opcionesRuleta) setOpcionesRuleta(data.opcionesRuleta);
+      if (typeof data.turno !== 'undefined') setTurno(data.turno);
+      if (typeof data.currentTipo !== 'undefined') setCurrentTipo(data.currentTipo);
+      if (typeof data.currentTexto !== 'undefined') setCurrentTexto(data.currentTexto);
+      if (typeof data.enJuego !== 'undefined') setEnJuego(data.enJuego);
+      if (data.customItems) setCustomItems(data.customItems);
+      if (typeof data.showYouDied !== 'undefined') setShowYouDied(data.showYouDied);
+    });
+    return () => unsub && unsub();
+  }, []);
+
   const agregarNombre = () => {
     if (nombre.trim() && !nombres.includes(nombre.trim())) {
-      setNombres([...nombres, nombre.trim()]);
+      const newNombres = [...nombres, nombre.trim()];
+      setNombres(newNombres);
       setNombre("");
+      updateGameRemote({ nombres: newNombres });
     }
   };
 
@@ -51,21 +72,29 @@ function App() {
     const texto = customTexto.trim();
     if (!texto) return;
     const nueva = { texto, tipo: customTipo, id: `custom-${Date.now()}-${Math.floor(Math.random()*1000)}` };
-    setCustomItems((c) => [...c, nueva]);
-    setOpcionesRuleta((o) => [...o, nueva]);
+    const newCustom = [...customItems, nueva];
+    const newOpc = [...opcionesRuleta, nueva];
+    setCustomItems(newCustom);
+    setOpcionesRuleta(newOpc);
     setCustomTexto('');
+    updateGameRemote({ customItems: newCustom, opcionesRuleta: newOpc });
   };
 
   const eliminarItem = (id) => {
-    setCustomItems((c) => c.filter(x => x.id !== id));
-    setOpcionesRuleta((o) => o.filter(x => x.id !== id));
+    const newCustom = customItems.filter(x => x.id !== id);
+    const newOpc = opcionesRuleta.filter(x => x.id !== id);
+    setCustomItems(newCustom);
+    setOpcionesRuleta(newOpc);
+    updateGameRemote({ customItems: newCustom, opcionesRuleta: newOpc });
   };
 
   const iniciarJuego = async () => {
     if (nombres.length >= 2) {
       setEnJuego(true);
-      setJugadores(nombres.map((n, i) => ({ nombre: n, vidas: 3, id: i })));
+      const newJug = nombres.map((n, i) => ({ nombre: n, vidas: 3, id: i }));
+      setJugadores(newJug);
       setTurno(0);
+      updateGameRemote({ enJuego: true, jugadores: newJug, turno: 0 });
     }
   };
 
@@ -84,28 +113,38 @@ function App() {
     setCurrentTexto(opt.texto);
     setSoloCentral(false);
     revealActiveRef.current = true;
+    updateGameRemote({ currentTipo: opt.tipo, currentTexto: opt.texto });
   };
 
   const cumplido = () => {
     revealActiveRef.current = false;
-    advanceTurn();
+    // advance turn and update remote
+    setTurno((t) => {
+      const nt = (t + 1) % jugadores.length;
+      updateGameRemote({ turno: nt, currentTexto: '' });
+      return nt;
+    });
     setCurrentTexto('');
     setSoloCentral(false);
   };
 
   const noCumplido = () => {
     revealActiveRef.current = false;
-    setJugadores((prev) => prev.map((p, idx) => idx === turno ? { ...p, vidas: Math.max(0, p.vidas - 1) } : p));
-    setTimeout(() => {
-      const jugador = jugadores[turno];
-      if (jugador && jugador.vidas <= 1) {
-        setShowYouDied(true);
-        setEnJuego(false);
-      }
-    }, 0);
-    advanceTurn();
+    const newJug = jugadores.map((p, idx) => idx === turno ? { ...p, vidas: Math.max(0, p.vidas - 1) } : p);
+    // determine if someone died
+    let didDie = false;
+    const curJugador = newJug[turno];
+    if (curJugador && curJugador.vidas <= 0) didDie = true;
+    const newTurn = (turno + 1) % (newJug.length || 1);
+    setJugadores(newJug);
+    setTurno(newTurn);
+    if (didDie) {
+      setShowYouDied(true);
+      setEnJuego(false);
+    }
     setCurrentTexto('');
     setSoloCentral(false);
+    updateGameRemote({ jugadores: newJug, turno: newTurn, showYouDied: didDie, enJuego: !didDie });
   };
 
   if (showYouDied) {
