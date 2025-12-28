@@ -154,6 +154,19 @@ body {
   text-align: center;
 }
 
+/* Global box-sizing and overflow safety to avoid elements escaping the white container */
+*, *::before, *::after { box-sizing: border-box; }
+.container { overflow-x: hidden; }
+
+/* Ensure form controls and content do not overflow */
+input, select, button, .custom-list, .jugadores { max-width: 100%; }
+
+.custom-list > div { display: flex; justify-content: space-between; align-items: center; gap: 8px; flex-wrap: wrap; }
+.custom-list > div > div { flex: 1 1 auto; min-width: 0; }
+.custom-list > div > button { flex: 0 0 auto; }
+
+.jugadores { display: flex; justify-content: center; gap: 16px; margin-bottom: 24px; flex-wrap: wrap; }
+
 h1 {
   color: #ff4e50;
   margin-bottom: 8px;
@@ -248,13 +261,13 @@ button {
 }
 
 /* Player name input and container tweaks */
-.player-input-row { width: 100%; max-width: 540px; }
-.nombre-input { flex: 1; min-width: 140px; padding: 10px 12px; font-size: 1rem; border-radius: 8px; }
+.player-input { width: 100%; max-width: 540px; margin: 0 auto; display: flex; flex-direction: column; gap: 8px; align-items: stretch; }
+.nombre-input { padding: 10px 12px; font-size: 1rem; border-radius: 8px; width: 100%; }
+.agregar-jugador-btn { width: 100%; }
 
-@media screen and (max-width: 420px) {
-  .player-input-row { width: 100%; padding: 0 6px; }
-  .nombre-input { min-width: 100px; font-size: 1rem; }
-  .agregar-jugador-btn { flex: 0 0 auto; }
+@media screen and (min-width: 720px) {
+  /* on wider screens keep slightly narrower controls centered */
+  .player-input { max-width: 640px; }
 }
 
 /* Responsive adjustments for small screens (iPhone X and similar) */

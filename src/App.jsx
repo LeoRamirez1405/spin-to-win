@@ -155,13 +155,12 @@ function App() {
             </div>
           )}
         </div>
-        <div className="player-input-row" style={{ display: 'flex', gap: 12, justifyContent: 'center', alignItems: 'center', marginBottom: 16 }}>
+        <div className="player-input" style={{ marginBottom: 16 }}>
           <input
             className="nombre-input"
             value={nombre}
             onChange={(e) => setNombre(e.target.value)}
             placeholder="Nombre del jugador"
-            style={{ flex: 1, minWidth: 0 }}
           />
           <button className="agregar-jugador-btn" onClick={agregarNombre}>
             Agregar jugador
