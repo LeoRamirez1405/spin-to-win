@@ -7,6 +7,7 @@
     "build": "vite build",
     "preview": "vite preview",
     "test": "jest",
+    "deploy:vercel": "vercel --prod",
     "create:repo": "sh ./scripts/create_github_repo.sh",
     "create:repo:ps": "pwsh ./scripts/create_github_repo.ps1"
   },
