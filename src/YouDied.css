@@ -10,3 +10,9 @@
 }
 .you-died-text { font-size: 48px; font-weight: 800; }
 .you-died-sub { font-size: 18px; margin-top: 12px }
+
+@media screen and (max-width: 420px) {
+  .you-died-text { font-size: 28px; text-align: center; padding: 0 12px; }
+  .you-died-sub { font-size: 14px; }
+  .you-died-overlay { padding: 20px; }
+}

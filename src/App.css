@@ -246,3 +246,63 @@ input {
 button {
   outline: none;
 }
+
+/* Responsive adjustments for small screens (iPhone X and similar) */
+@media screen and (max-width: 420px) {
+  :root {
+    --container-padding-vertical: 18px;
+    --container-padding-horizontal: 14px;
+    --btn-padding-vertical: 12px;
+    --btn-padding-horizontal: 18px;
+  }
+
+  .container {
+    max-width: 360px;
+    width: calc(100% - 24px);
+    margin: 20px auto;
+    padding: var(--container-padding-vertical) var(--container-padding-horizontal);
+    border-radius: 14px;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.12);
+  }
+
+  h1 { font-size: 1.8rem; line-height: 1.1; margin-bottom: 6px; }
+  h2 { font-size: 1rem; margin-top: 2px; }
+  h3 { font-size: 0.98rem; }
+
+  p, li { font-size: 0.98rem; }
+
+  .jugadores { gap: 8px; flex-wrap: wrap; justify-content: center; }
+
+  .jugador { padding: 6px 12px; margin: 0 6px 6px 0; font-size: 0.95rem; border-radius: 10px; }
+  .jugador.actual { border-width: 1.5px; }
+
+  input, select { font-size: 1rem; padding: 8px 10px; }
+
+  .agregar-jugador-btn, button, .girar-ruleta-btn, .girar, .cumplido, .no-cumplido {
+    width: 100%;
+    padding: var(--btn-padding-vertical) var(--btn-padding-horizontal);
+    font-size: 1rem;
+    border-radius: 14px;
+  }
+
+  .custom-items-section > div[style] {
+    flex-direction: column !important;
+    align-items: stretch !important;
+  }
+
+  .custom-items-section select, .custom-items-section input, .custom-items-section button {
+    width: 100%;
+    margin-bottom: 8px;
+  }
+
+  .reto-pregunta { padding: 16px 12px; }
+
+  .typing-reveal-texto { font-size: 1.05rem; padding: 10px 14px; }
+}
+
+/* Fine tune for very narrow phones */
+@media screen and (max-width: 360px) {
+  h1 { font-size: 1.6rem; }
+  .container { padding: 14px 12px; }
+  .jugador { font-size: 0.9rem; }
+}
