@@ -261,9 +261,15 @@ button {
 }
 
 /* Player name input and container tweaks */
-.player-input { width: 100%; max-width: 540px; margin: 0 auto; display: flex; flex-direction: column; gap: 8px; align-items: stretch; }
-.nombre-input { padding: 10px 12px; font-size: 1rem; border-radius: 8px; width: 100%; }
-.agregar-jugador-btn { width: 100%; }
+.player-input { width: 100%; max-width: 540px; margin: 0 auto; display: flex; flex-direction: column; gap: 8px; align-items: center; }
+.nombre-input { padding: 10px 12px; font-size: 1rem; border-radius: 8px; width: 100%; max-width: 420px; }
+.agregar-jugador-btn { width: auto; min-width: 160px; padding: 10px 18px; align-self: center; }
+
+/* On very small screens keep button full width for easier tapping */
+@media screen and (max-width: 420px) {
+  .agregar-jugador-btn { width: 100%; max-width: none; }
+  .nombre-input { max-width: none; }
+}
 
 @media screen and (min-width: 720px) {
   /* on wider screens keep slightly narrower controls centered */
